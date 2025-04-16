@@ -1,0 +1,22 @@
+<h2>Listar Postagens</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Data</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts">
+      <td>{{ post.titulo }}</td>
+      <td>{{ post.autor }}</td>
+      <td>{{ post.data | date:'short' }}</td>
+      <td>
+        <button (click)="onEdit(post.id)">Editar</button>
+        <button (click)="onDelete(post.id)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

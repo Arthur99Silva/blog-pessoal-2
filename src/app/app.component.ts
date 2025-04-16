@@ -8,7 +8,9 @@ import { RouterModule } from '@angular/router';
   template: `
     <header>
       <nav>
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a> |
+        <a routerLink="/posts"   routerLinkActive="active">Listar Posts</a> |
+        <a routerLink="/posts/create" routerLinkActive="active">Criar Post</a>
       </nav>
     </header>
     <main>

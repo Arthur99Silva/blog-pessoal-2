@@ -1,14 +1,14 @@
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PostListComponent } from './post-list/post-list.component';
+import { PostFormComponent } from './post-form/post-form.component';
 
 export const routes: Routes = [
-  // Redireciona a raiz para /dashboard
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
-  // Rota para o Dashboard
   { path: 'dashboard', component: DashboardComponent },
-
-  // Wildcard: qualquer outra rota volta para o dashboard
+  { path: 'posts', component: PostListComponent },
+  { path: 'posts/create', component: PostFormComponent },
+  { path: 'posts/edit/:id', component: PostFormComponent },
   { path: '**', redirectTo: 'dashboard' }
 ];
