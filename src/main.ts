@@ -1,3 +1,4 @@
+// src/main.ts
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
@@ -10,6 +11,9 @@ import { AppComponent } from './app/app.component';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(BrowserAnimationsModule, HttpClientModule)
+    importProvidersFrom(
+      BrowserAnimationsModule,
+      HttpClientModule
+    )
   ]
 }).catch(err => console.error(err));

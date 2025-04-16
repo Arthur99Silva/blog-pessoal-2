@@ -1,3 +1,4 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -5,8 +6,14 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   selector: 'app-root',
   template: `
-    <h1>Bem-vindo ao Blog Pessoal</h1>
-    <router-outlet></router-outlet>
+    <header>
+      <nav>
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </nav>
+    </header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
   `,
   styleUrls: ['./app.component.scss'],
   imports: [RouterModule]
