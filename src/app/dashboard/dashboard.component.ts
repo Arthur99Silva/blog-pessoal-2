@@ -1,45 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';  // Importe o módulo do ngx-charts
+import { PostService, Post } from '../services/post.service'; // ajuste o caminho se necessário
+import { NgxChartsModule } from '@swimlane/ngx-charts'; // Caso use gráficos
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true,   // Indica que o componente é standalone
-  imports: [NgxChartsModule],  // Adicione aqui os módulos necessários
-  template: `
-    <ngx-charts-bar-vertical
-      [results]="data"
-      [scheme]="colorScheme"
-      [xAxis]="true"
-      [yAxis]="true"
-      [gradient]="false"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      xAxisLabel="Autor"
-      yAxisLabel="Quantidade de Posts">
-    </ngx-charts-bar-vertical>
-  `,
+  standalone: true,
+  imports: [NgxChartsModule], // importe outros módulos necessários
+  templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
-  // Dados de exemplo para o gráfico
-  data: any[] = [
-    { name: 'Autor A', value: 50 },
-    { name: 'Autor B', value: 80 },
-    { name: 'Autor C', value: 30 }
-  ];
+  posts: Post[] = [];
 
-  // Definição de esquema de cores
-  colorScheme: any = {
-    name: 'customScheme',
-    selectable: true,
-    group: 'Ordinal',
-    domain: ['#5AA454', '#E44D25', '#CFC0BB']
-  };
-
-  constructor() { }
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    // Aqui você pode carregar os dados reais, possivelmente via um serviço
+    this.loadPosts();
+  }
+
+  // Método para carregar os posts do backend
+  loadPosts(): void {
+    this.postService.getAllPosts().subscribe({
+      next: (data: Post[]) => {
+        this.posts = data;
+        console.log('Posts carregados:', this.posts);
+      },
+      error: (error) => {
+        console.error('Erro ao carregar posts:', error);
+      }
+    });
   }
 }

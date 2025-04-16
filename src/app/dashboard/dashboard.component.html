@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div>
+    <h2>Lista de Postagens</h2>
+    <ul>
+      <li *ngFor="let post of posts">
+        <h3>{{ post.titulo }}</h3>
+        <p>{{ post.conteudo }}</p>
+        <p><strong>Autor:</strong> {{ post.autor }}</p>
+        <p><strong>Data:</strong> {{ post.data | date:'short' }}</p>
+      </li>
+    </ul>
+  </div>
+  
