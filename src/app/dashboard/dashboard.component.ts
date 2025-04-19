@@ -1,99 +1,62 @@
+// src/app/dashboard/dashboard.component.ts
+
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { PostService, Post } from '../services/post.service'; // Verifique se o caminho está correto
 import { CommonModule } from '@angular/common';
-// Se for utilizar algum outro módulo (ex.: para formatação ou gráficos), importe-os aqui
+import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { PostService, Post } from '../services/post.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    NgxChartsModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  totalPosts = 0;
+  postsByAuthor: { name: string; value: number }[] = [];
+  recentPosts: Post[] = [];
 
-  posts: Post[] = [];
-  postForm: FormGroup;
-  isEditMode: boolean = false;
-  editingPostId: number | null = null;
+  // Definição do esquema de cores compatível com a interface Color e ScaleType enum
+  colorScheme: Color = {
+    name: 'postsByAuthorScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#3f51b5', '#e91e63', '#009688', '#ff9800', '#9c27b0']
+  };
 
-  constructor(private postService: PostService, private fb: FormBuilder) {
-    // Cria o formulário com validações simples
-    this.postForm = this.fb.group({
-      titulo: ['', Validators.required],
-      conteudo: ['', Validators.required],
-      autor: ['', Validators.required]
-    });
-  }
+  // Tamanho do gráfico [largura, altura]
+  view: [number, number] = [700, 400];
+
+  constructor(private postService: PostService) {}
 
   ngOnInit(): void {
-    this.loadPosts();
-  }
+    this.postService.getAllPosts().subscribe(posts => {
+      // 1) Total de postagens
+      this.totalPosts = posts.length;
 
-  // Carrega os posts do backend chamando o serviço
-  loadPosts(): void {
-    this.postService.getAllPosts().subscribe({
-      next: (data: Post[]) => {
-        this.posts = data;
-        console.log('Posts carregados:', this.posts);
-      },
-      error: (error) => console.error('Erro ao carregar posts:', error)
+      // 2) Agrupa as postagens por autor
+      const counts = posts.reduce((acc, p) => {
+        acc[p.autor] = (acc[p.autor] || 0) + 1;
+        return acc;
+      }, {} as Record<string, number>);
+
+      this.postsByAuthor = Object.entries(counts)
+        .map(([name, value]) => ({ name, value }));
+
+      // 3) As 5 últimas postagens pela data
+      this.recentPosts = posts
+        .sort((a, b) => new Date(b.data!).getTime() - new Date(a.data!).getTime())
+        .slice(0, 5);
     });
-  }
-
-  // Método chamado ao submeter o formulário para criar ou atualizar
-  onSubmit(): void {
-    if (this.postForm.invalid) {
-      return;
-    }
-    if (this.isEditMode && this.editingPostId !== null) {
-      // Atualização de post
-      const updatedPost: Post = { ...this.postForm.value };
-      this.postService.updatePost(this.editingPostId, updatedPost).subscribe({
-        next: () => {
-          this.loadPosts();
-          this.clearForm();
-        },
-        error: (error) => console.error('Erro ao atualizar post:', error)
-      });
-    } else {
-      // Criação de novo post
-      const newPost: Post = { ...this.postForm.value };
-      this.postService.createPost(newPost).subscribe({
-        next: () => {
-          this.loadPosts();
-          this.clearForm();
-        },
-        error: (error) => console.error('Erro ao criar post:', error)
-      });
-    }
-  }
-
-  // Prepara o formulário para edição, carregando os dados do post selecionado
-  onEdit(post: Post): void {
-    this.isEditMode = true;
-    this.editingPostId = post.id || null;
-    this.postForm.patchValue({
-      titulo: post.titulo,
-      conteudo: post.conteudo,
-      autor: post.autor,
-    });
-  }
-
-  // Chama o serviço para excluir o post
-  onDelete(postId: number | undefined): void {
-    if (!postId) return;
-    this.postService.deletePost(postId).subscribe({
-      next: () => this.loadPosts(),
-      error: (error) => console.error('Erro ao excluir post:', error)
-    });
-  }
-
-  // Limpa o formulário e sai do modo de edição
-  clearForm(): void {
-    this.postForm.reset();
-    this.isEditMode = false;
-    this.editingPostId = null;
   }
 }
