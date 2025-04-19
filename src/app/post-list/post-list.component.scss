@@ -1,11 +1,27 @@
 .post-list-card {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .item-content {
-    flex: 1;
-    overflow: hidden;
-  }
-  
+  max-width: 900px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filter-field {
+  flex: 1 1 200px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.item-content {
+  flex: 1;
+  overflow: hidden;
+}
