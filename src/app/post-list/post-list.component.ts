@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { PostService, Post } from '../services/post.service';
 
 @Component({
   standalone: true,
   selector: 'app-post-list',
-  imports: [CommonModule, RouterModule],
-  templateUrl: './post-list.component.html'
+  templateUrl: './post-list.component.html',
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule
+  ]
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];

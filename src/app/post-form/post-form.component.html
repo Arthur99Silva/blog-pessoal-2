@@ -1,18 +1,28 @@
-<h2>{{ isEdit ? 'Editar Postagem' : 'Criar Nova Postagem' }}</h2>
+<mat-card class="post-form-card mat-elevation-z2">
+  <mat-card-title>
+    {{ isEdit ? 'Editar Postagem' : 'Nova Postagem' }}
+  </mat-card-title>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo" />
+    </mat-form-field>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="titulo">Título</label>
-    <input id="titulo" formControlName="titulo" />
-  </div>
-  <div>
-    <label for="conteudo">Conteúdo</label>
-    <textarea id="conteudo" formControlName="conteudo"></textarea>
-  </div>
-  <div>
-    <label for="autor">Autor</label>
-    <input id="autor" formControlName="autor" />
-  </div>
-  <button type="submit">{{ isEdit ? 'Atualizar' : 'Criar' }}</button>
-  <button type="button" routerLink="/posts">Cancelar</button>
-</form>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Conteúdo</mat-label>
+      <textarea matInput formControlName="conteudo" rows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Autor</mat-label>
+      <input matInput formControlName="autor" />
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit">
+        {{ isEdit ? 'Atualizar' : 'Criar' }}
+      </button>
+      <button mat-button routerLink="/posts">Cancelar</button>
+    </div>
+  </form>
+</mat-card>

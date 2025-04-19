@@ -1,23 +1,17 @@
-// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone: true,
   selector: 'app-root',
-  template: `
-    <header>
-      <nav>
-        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a> |
-        <a routerLink="/posts"   routerLinkActive="active">Listar Posts</a> |
-        <a routerLink="/posts/create" routerLinkActive="active">Criar Post</a>
-      </nav>
-    </header>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  `,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  imports: [RouterModule]
+  imports: [
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule
+  ]
 })
 export class AppComponent {}

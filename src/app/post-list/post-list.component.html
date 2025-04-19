@@ -1,22 +1,17 @@
-<h2>Listar Postagens</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Título</th>
-      <th>Autor</th>
-      <th>Data</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let post of posts">
-      <td>{{ post.titulo }}</td>
-      <td>{{ post.autor }}</td>
-      <td>{{ post.data | date:'short' }}</td>
-      <td>
-        <button (click)="onEdit(post.id)">Editar</button>
-        <button (click)="onDelete(post.id)">Excluir</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<mat-card class="post-list-card mat-elevation-z2">
+  <mat-card-title>Listar Postagens</mat-card-title>
+  <mat-list>
+    <mat-list-item *ngFor="let post of posts">
+      <div class="item-content">
+        <h3 matLine>{{ post.titulo }}</h3>
+        <p matLine>{{ post.autor }} • {{ post.data | date:'short' }}</p>
+      </div>
+      <button mat-icon-button color="primary" (click)="onEdit(post.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="onDelete(post.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</mat-card>
