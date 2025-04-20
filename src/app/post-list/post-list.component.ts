@@ -1,3 +1,5 @@
+// src/app/post-list/post-list.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -12,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { AuthService } from '../services/auth.service';
 import { PostService, Post } from '../services/post.service';
 
 @Component({
@@ -45,16 +48,24 @@ export class PostListComponent implements OnInit {
   loading = false;
 
   constructor(
+    private auth: AuthService,
     private postService: PostService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    // sempre que o filtro mudar, reaplica
+    // 0) Se não estiver logado, redireciona para /login
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // 1) Monitora filtros
     this.titleFilter.valueChanges.subscribe(() => this.applyFilter());
     this.authorFilter.valueChanges.subscribe(() => this.applyFilter());
 
+    // 2) Carrega posts
     this.loadPosts();
   }
 
@@ -64,7 +75,6 @@ export class PostListComponent implements OnInit {
       next: posts => {
         this.loading = false;
         this.posts = posts;
-        // lista única de autores
         this.authors = Array.from(new Set(posts.map(p => p.autor))).sort();
         this.applyFilter();
       },
@@ -88,10 +98,20 @@ export class PostListComponent implements OnInit {
   }
 
   onEdit(id: number | undefined): void {
-    if (id != null) this.router.navigate(['/posts/edit', id]);
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+    if (id != null) {
+      this.router.navigate(['/posts/edit', id]);
+    }
   }
 
   onDelete(id: number | undefined): void {
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }
     if (id == null) return;
     if (!confirm('Confirma exclusão deste post?')) return;
 
