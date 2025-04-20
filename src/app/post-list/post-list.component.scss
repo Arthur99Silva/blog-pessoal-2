@@ -21,7 +21,18 @@
   margin: 2rem 0;
 }
 
+.list-item {
+  padding: 1rem 0;
+}
+
 .item-content {
-  flex: 1;
-  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
 }

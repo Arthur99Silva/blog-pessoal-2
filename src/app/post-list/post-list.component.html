@@ -2,7 +2,6 @@
   <mat-card-title>Listar Postagens</mat-card-title>
   <mat-card-content>
 
-    <!-- FILTROS -->
     <div class="filters">
       <mat-form-field appearance="outline" class="filter-field">
         <mat-label>Buscar por título</mat-label>
@@ -18,24 +17,26 @@
       </mat-form-field>
     </div>
 
-    <!-- SPINNER -->
     <div class="loading" *ngIf="loading">
       <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
     </div>
 
-    <!-- LISTA FILTRADA -->
     <mat-list *ngIf="!loading">
-      <mat-list-item *ngFor="let post of filteredPosts">
+      <mat-list-item *ngFor="let post of filteredPosts" class="list-item">
         <div class="item-content">
-          <h3 matLine>{{ post.titulo }}</h3>
-          <p matLine>{{ post.autor }} • {{ post.data | date:'short' }}</p>
+          <div>
+            <h3>{{ post.titulo }}</h3>
+            <p>{{ post.autor }} • {{ post.data | date:'short' }}</p>
+          </div>
+          <div class="actions">
+            <button mat-icon-button color="primary" (click)="onEdit(post.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDelete(post.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
-        <button mat-icon-button color="primary" (click)="onEdit(post.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="onDelete(post.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
       </mat-list-item>
     </mat-list>
 

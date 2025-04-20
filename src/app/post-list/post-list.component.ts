@@ -1,5 +1,3 @@
-// src/app/post-list/post-list.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -20,6 +18,8 @@ import { PostService, Post } from '../services/post.service';
 @Component({
   standalone: true,
   selector: 'app-post-list',
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss'],
   imports: [
     CommonModule,
     RouterModule,
@@ -33,9 +33,7 @@ import { PostService, Post } from '../services/post.service';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatSnackBarModule
-  ],
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  ]
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
@@ -55,17 +53,14 @@ export class PostListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 0) Se não estiver logado, redireciona para /login
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(['/login']);
       return;
     }
 
-    // 1) Monitora filtros
     this.titleFilter.valueChanges.subscribe(() => this.applyFilter());
     this.authorFilter.valueChanges.subscribe(() => this.applyFilter());
 
-    // 2) Carrega posts
     this.loadPosts();
   }
 
