@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';           // ← import adicionado
 import { NgxChartsModule, Color, ScaleType } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,6 +18,7 @@ import { PostService, Post } from '../services/post.service';
   styleUrls: ['./dashboard.component.scss'],
   imports: [
     CommonModule,
+    RouterModule,                // ← adicionado aqui
     NgxChartsModule,
     MatCardModule,
     MatDividerModule,
@@ -30,7 +32,6 @@ export class DashboardComponent implements OnInit {
   postsByAuthor: { name: string; value: number }[] = [];
   recentPosts: Post[] = [];
 
-  // esquema de cores continua igual
   colorScheme: Color = {
     name: 'postsByAuthorScheme',
     selectable: true,
@@ -38,7 +39,6 @@ export class DashboardComponent implements OnInit {
     domain: ['#3f51b5', '#e91e63', '#009688', '#ff9800', '#9c27b0']
   };
 
-  // agora um tamanho fixo que cabe no card
   view: [number, number] = [500, 240];
 
   constructor(
@@ -48,13 +48,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.auth.isAuthenticated()) return;
+
     this.postService.getAllPosts().subscribe(posts => {
       this.totalPosts = posts.length;
+
       const counts = posts.reduce((acc, p) => {
         acc[p.autor] = (acc[p.autor] || 0) + 1;
         return acc;
       }, {} as Record<string, number>);
-      this.postsByAuthor = Object.entries(counts).map(([name, value]) => ({ name, value }));
+      this.postsByAuthor = Object.entries(counts)
+        .map(([name, value]) => ({ name, value }));
+
       this.recentPosts = posts
         .sort((a, b) => new Date(b.data!).getTime() - new Date(a.data!).getTime())
         .slice(0, 5);

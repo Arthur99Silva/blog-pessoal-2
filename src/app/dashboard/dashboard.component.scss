@@ -20,19 +20,17 @@ mat-card-header {
   border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
-/* força o gráfico a caber no card */
-.chart-container {
-  width: 100%;
-  height: 260px; /* um pouco acima do view[1] pra ter espaçamento */
-  overflow: hidden;
-}
-
-/* exemplo de ajuste fino nos cartões */
 .summary-content {
   font-size: 3rem;
   text-align: center;
   padding: 1rem 0;
   color: #3f51b5;
+}
+
+.chart-container {
+  width: 100%;
+  height: 260px;  /* para conter o gráfico */
+  overflow: hidden;
 }
 
 .divider {
@@ -52,6 +50,15 @@ mat-card-header {
 .post-meta {
   font-size: 0.85rem;
   color: rgba(0,0,0,0.6);
+}
+
+/* deixa o item clicável com hover */
+.clickable-item {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.clickable-item:hover {
+  background: rgba(0,0,0,0.04);
 }
 
 @keyframes fadeIn {
