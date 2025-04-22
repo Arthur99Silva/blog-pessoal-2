@@ -1,46 +1,54 @@
-<!-- src/app/dashboard/dashboard.component.html -->
-
 <div class="dashboard-container">
 
-  <!-- Cartão com total de posts -->
-  <mat-card class="summary-card">
-    <mat-card-title>Total de Postagens</mat-card-title>
+  <mat-card class="summary-card mat-elevation-z2">
+    <mat-card-header>
+      <mat-icon>assignment</mat-icon>
+      <mat-card-title>Total de Postagens</mat-card-title>
+    </mat-card-header>
     <mat-card-content class="summary-content">
       {{ totalPosts }}
     </mat-card-content>
   </mat-card>
 
-  <!-- Cartão com gráfico de posts por autor -->
-  <mat-card class="chart-card">
-    <mat-card-title>Postagens por Autor</mat-card-title>
-    <ngx-charts-bar-vertical
-      [results]="postsByAuthor"
-      [scheme]="colorScheme"
-      [view]="view"
-      [xAxis]="true"
-      [yAxis]="true"
-      [gradient]="false"
-      [showXAxisLabel]="true"
-      [showYAxisLabel]="true"
-      xAxisLabel="Autor"
-      yAxisLabel="Quantidade">
-    </ngx-charts-bar-vertical>
+  <mat-card class="chart-card mat-elevation-z2">
+    <mat-card-header>
+      <mat-icon>bar_chart</mat-icon>
+      <mat-card-title>Postagens por Autor</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="chart-container">
+      <ngx-charts-bar-vertical
+        [results]="postsByAuthor"
+        [scheme]="colorScheme"
+        [view]="view"
+        [xAxis]="true"
+        [yAxis]="true"
+        [gradient]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        xAxisLabel="Autor"
+        yAxisLabel="Quantidade"
+      >
+      </ngx-charts-bar-vertical>
+    </mat-card-content>
   </mat-card>
 
-  <!-- Divisor entre seção de gráfico e lista -->
-  <mat-divider></mat-divider>
+  <mat-divider class="divider"></mat-divider>
 
-  <!-- Cartão com as 5 últimas postagens -->
-  <mat-card class="recent-card">
-    <mat-card-title>Últimas Postagens</mat-card-title>
-    <mat-list>
-      <mat-list-item *ngFor="let post of recentPosts">
-        <div matLine class="post-title">{{ post.titulo }}</div>
-        <div matLine class="post-meta">
-          {{ post.autor }} • {{ post.data | date:'short' }}
-        </div>
-      </mat-list-item>
-    </mat-list>
+  <mat-card class="recent-card mat-elevation-z2">
+    <mat-card-header>
+      <mat-icon>history</mat-icon>
+      <mat-card-title>Últimas Postagens</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let post of recentPosts">
+          <div class="item-lines">
+            <div class="post-title">{{ post.titulo }}</div>
+            <div class="post-meta">{{ post.autor }} • {{ post.data | date:'short' }}</div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
   </mat-card>
 
 </div>

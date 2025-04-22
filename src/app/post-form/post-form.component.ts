@@ -1,5 +1,3 @@
-// src/app/post-form/post-form.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -9,10 +7,14 @@ import {
   Validators
 } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+
+// Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AuthService } from '../services/auth.service';
 import { PostService, Post } from '../services/post.service';
@@ -29,37 +31,38 @@ import { PostService, Post } from '../services/post.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule
   ]
 })
 export class PostFormComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
   postId: number | null = null;
+  hideContent = false;  // não usado aqui, mas mantido para futuros toggles
 
   constructor(
-    private auth: AuthService,
     private fb: FormBuilder,
+    private auth: AuthService,
     private postService: PostService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    // Redireciona se não logado
     if (!this.auth.isAuthenticated()) {
       this.router.navigate(['/login']);
       return;
     }
 
-    // Inicializa o formulário
     this.form = this.fb.group({
       titulo: ['', Validators.required],
       conteudo: ['', Validators.required],
       autor: ['', Validators.required]
     });
 
-    // Se houver parâmetro `id`, carrega post para edição
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -67,27 +70,30 @@ export class PostFormComponent implements OnInit {
         this.postId = +id;
         this.postService.getAllPosts().subscribe(posts => {
           const post = posts.find(p => p.id === this.postId);
-          if (post) this.form.patchValue(post);
+          if (post) {
+            this.form.patchValue(post);
+          }
         });
       }
     });
   }
 
   onSubmit(): void {
-    if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['/login']);
-      return;
-    }
     if (this.form.invalid) return;
-
     const data = this.form.value as Post;
     const action = this.isEdit && this.postId != null
       ? this.postService.updatePost(this.postId, data)
       : this.postService.createPost(data);
 
     action.subscribe({
-      next: () => this.router.navigate(['/posts']),
-      error: () => this.router.navigate(['/posts'])
+      next: () => {
+        const msg = this.isEdit ? 'Post atualizado!' : 'Post criado!';
+        this.snack.open(msg, 'Fechar', { duration: 2000 });
+        this.router.navigate(['/posts']);
+      },
+      error: () => {
+        this.snack.open('Erro ao salvar post', 'Fechar', { duration: 3000 });
+      }
     });
   }
 }
