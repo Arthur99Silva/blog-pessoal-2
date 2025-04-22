@@ -1,22 +1,30 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  height: 56px;  /* toolbar padrão */
+
+  .app-logo {
+    max-height: 100%;  /* ajusta o logo à altura do toolbar */
+    width: auto;
+    margin-right: 1rem;
   }
-  
-  mat-toolbar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
-  
-  .container {
-    flex: 1;
-    padding: 1rem;
-    overflow: auto;
-  }
-  
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.container {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
