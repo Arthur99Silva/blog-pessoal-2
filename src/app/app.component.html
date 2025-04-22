@@ -1,18 +1,13 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
-  <!-- logo no lugar do texto -->
   <img src="assets/logo3.png" alt="Blog Pessoal" class="app-logo" />
 
   <span class="spacer"></span>
 
-  <!-- Se autenticado, mostra rotas privadas e Logout -->
+  <!-- Links de navegação conforme autenticação -->
   <ng-container *ngIf="auth.isAuthenticated(); else loggedOut">
-    <button mat-button routerLink="/dashboard">Dashboard</button>
-    <button mat-button routerLink="/posts">Posts</button>
-    <button mat-button routerLink="/posts/create">Novo Post</button>
     <button mat-button (click)="logout()">Logout</button>
   </ng-container>
 
-  <!-- Se não autenticado, mostra Signup e Login -->
   <ng-template #loggedOut>
     <button mat-button routerLink="/signup">Cadastrar</button>
     <button mat-button routerLink="/login">Login</button>
@@ -22,3 +17,5 @@
 <main class="container">
   <router-outlet></router-outlet>
 </main>
+
+<app-footer></app-footer>

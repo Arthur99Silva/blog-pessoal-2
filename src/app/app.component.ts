@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+
 import { AuthService } from './services/auth.service';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   standalone: true,
@@ -13,13 +15,16 @@ import { AuthService } from './services/auth.service';
   imports: [
     CommonModule,
     RouterModule,
-    NgIf,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    FooterComponent
   ]
 })
 export class AppComponent {
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(
+    public auth: AuthService,
+    private router: Router
+  ) {}
 
   logout() {
     this.auth.logout();
