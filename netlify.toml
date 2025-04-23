@@ -1,8 +1,9 @@
+# netlify.toml (na raiz do repositório)
 [build]
   command = "ng build --configuration production"
   publish = "dist/blog-pessoal"
 
 [[redirects]]
-  from = "/*"
-  to   = "/index.html"
+  from   = "/*"
+  to     = "/index.html"
   status = 200
