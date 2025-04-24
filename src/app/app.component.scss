@@ -37,3 +37,12 @@ mat-toolbar {
 app-footer {
   flex-shrink: 0;
 }
+
+.header-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 6px;
+  vertical-align: middle;
+}
