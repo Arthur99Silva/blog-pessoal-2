@@ -6,6 +6,7 @@
   <!-- Links de navegação conforme autenticação -->
   <ng-container *ngIf="auth.isAuthenticated(); else loggedOut">
     <button mat-button (click)="logout()">Logout</button>
+    <button mat-button routerLink="/profile">Perfil</button>
   </ng-container>
 
   <ng-template #loggedOut>

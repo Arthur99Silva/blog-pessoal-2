@@ -5,6 +5,7 @@ import { PostFormComponent } from './post-form/post-form.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './services/auth.guard';
 
 export const APP_ROUTES: Routes = [
@@ -16,5 +17,6 @@ export const APP_ROUTES: Routes = [
   { path: 'posts/create', component: PostFormComponent, canActivate: [AuthGuard] },
   { path: 'posts/edit/:id', component: PostFormComponent, canActivate: [AuthGuard] },
   { path: 'posts/:id', component: PostDetailComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' }
 ];

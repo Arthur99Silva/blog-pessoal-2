@@ -1,0 +1,15 @@
+<!-- profile.component.html -->
+<mat-card *ngIf="username; else noUser">
+    <mat-card-header>
+      <mat-card-title>Perfil de {{ username }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Bem-vindo(a), {{ username }}!</p>
+      <!-- aqui você pode adicionar mais campos de perfil -->
+    </mat-card-content>
+  </mat-card>
+  
+  <ng-template #noUser>
+    <p>Você não está logado.</p>
+  </ng-template>
+  
