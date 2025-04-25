@@ -5,18 +5,39 @@ import { PostFormComponent } from './post-form/post-form.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './services/auth.guard';
+import { PendingChangesGuard } from './guards/pending-changes.guard';
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'posts', component: PostListComponent, canActivate: [AuthGuard] },
-  { path: 'posts/create', component: PostFormComponent, canActivate: [AuthGuard] },
-  { path: 'posts/edit/:id', component: PostFormComponent, canActivate: [AuthGuard] },
-  { path: 'posts/:id', component: PostDetailComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'posts',
+    component: PostListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'posts/create',
+    component: PostFormComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [PendingChangesGuard]
+  },
+  {
+    path: 'posts/edit/:id',
+    component: PostFormComponent,
+    canActivate: [AuthGuard],
+    canDeactivate: [PendingChangesGuard]
+  },
+  {
+    path: 'posts/:id',
+    component: PostDetailComponent,
+    canActivate: [AuthGuard]
+  },
   { path: '**', redirectTo: '/login' }
 ];

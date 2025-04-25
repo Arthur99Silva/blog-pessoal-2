@@ -10,16 +10,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '../services/auth.service';
 import { PostService, Post } from '../services/post.service';
+import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   standalone: true,
   selector: 'app-post-list',
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss'],
   imports: [
     CommonModule,
     RouterModule,
@@ -32,8 +32,11 @@ import { PostService, Post } from '../services/post.service';
     MatInputModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
-  ]
+    MatSnackBarModule,
+    MatDialogModule,
+  ],
+  templateUrl: './post-list.component.html',
+  styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
@@ -42,14 +45,14 @@ export class PostListComponent implements OnInit {
 
   titleFilter = new FormControl('');
   authorFilter = new FormControl('');
-
   loading = false;
 
   constructor(
     private auth: AuthService,
     private postService: PostService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -58,9 +61,8 @@ export class PostListComponent implements OnInit {
       return;
     }
 
-    this.titleFilter.valueChanges.subscribe(() => this.applyFilter());
-    this.authorFilter.valueChanges.subscribe(() => this.applyFilter());
-
+    this.titleFilter.valueChanges.subscribe(() => this.applyFilters());
+    this.authorFilter.valueChanges.subscribe(() => this.applyFilters());
     this.loadPosts();
   }
 
@@ -68,23 +70,21 @@ export class PostListComponent implements OnInit {
     this.loading = true;
     this.postService.getAllPosts().subscribe({
       next: posts => {
-        this.loading = false;
         this.posts = posts;
         this.authors = Array.from(new Set(posts.map(p => p.autor))).sort();
-        this.applyFilter();
-      },
-      error: err => {
+        this.applyFilters();
         this.loading = false;
-        console.error(err);
+      },
+      error: () => {
         this.snackBar.open('Erro ao carregar postagens', 'Fechar', { duration: 3000 });
+        this.loading = false;
       }
     });
   }
 
-  private applyFilter(): void {
+  private applyFilters(): void {
     const title = this.titleFilter.value?.toLowerCase() || '';
     const author = this.authorFilter.value || '';
-
     this.filteredPosts = this.posts.filter(p => {
       const matchesTitle = p.titulo.toLowerCase().includes(title);
       const matchesAuthor = author ? p.autor === author : true;
@@ -103,24 +103,30 @@ export class PostListComponent implements OnInit {
   }
 
   onDelete(id: number | undefined): void {
-    if (!this.auth.isAuthenticated()) {
+    if (!this.auth.isAuthenticated() || id == null) {
       this.router.navigate(['/login']);
       return;
     }
-    if (id == null) return;
-    if (!confirm('Confirma exclusão deste post?')) return;
 
-    this.loading = true;
-    this.postService.deletePost(id).subscribe({
-      next: () => {
-        this.snackBar.open('Post excluído', 'Fechar', { duration: 2000 });
-        this.loadPosts();
-      },
-      error: err => {
-        this.loading = false;
-        console.error(err);
-        this.snackBar.open('Erro ao excluir post', 'Fechar', { duration: 3000 });
-      }
-    });
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          title: 'Confirmar exclusão?',
+          message: 'Deseja realmente excluir este post?'
+        }
+      })
+      .afterClosed()
+      .subscribe(confirmed => {
+        if (!confirmed) return;
+
+        this.loading = true;
+        this.postService.deletePost(id).subscribe({
+          next: () => this.loadPosts(),
+          error: () => {
+            this.snackBar.open('Erro ao excluir post', 'Fechar', { duration: 3000 });
+            this.loading = false;
+          }
+        });
+      });
   }
 }

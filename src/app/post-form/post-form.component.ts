@@ -7,8 +7,6 @@ import {
   Validators
 } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-
-// Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -22,8 +20,6 @@ import { PostService, Post } from '../services/post.service';
 @Component({
   standalone: true,
   selector: 'app-post-form',
-  templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.scss'],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -34,13 +30,14 @@ import { PostService, Post } from '../services/post.service';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule
-  ]
+  ],
+  templateUrl: './post-form.component.html',
+  styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
   postId: number | null = null;
-  hideContent = false;  // não usado aqui, mas mantido para futuros toggles
 
   constructor(
     private fb: FormBuilder,
@@ -80,15 +77,22 @@ export class PostFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.invalid) return;
+
     const data = this.form.value as Post;
-    const action = this.isEdit && this.postId != null
-      ? this.postService.updatePost(this.postId, data)
-      : this.postService.createPost(data);
+    const action =
+      this.isEdit && this.postId != null
+        ? this.postService.updatePost(this.postId, data)
+        : this.postService.createPost(data);
 
     action.subscribe({
       next: () => {
         const msg = this.isEdit ? 'Post atualizado!' : 'Post criado!';
         this.snack.open(msg, 'Fechar', { duration: 2000 });
+
+        // <<< Imprescindível: limpa o estado dirty
+        this.form.markAsPristine();
+
+        // navega sem disparar o PendingChangesGuard
         this.router.navigate(['/posts']);
       },
       error: () => {
