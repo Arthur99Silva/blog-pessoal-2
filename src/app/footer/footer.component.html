@@ -1,25 +1,51 @@
 <footer class="app-footer mat-elevation-z4">
-    <div class="nav-links">
-      <button mat-button routerLink="/dashboard">
-        <mat-icon>dashboard</mat-icon>
-        Dashboard
-      </button>
-      <button mat-button routerLink="/posts">
-        <mat-icon>list</mat-icon>
-        Posts
-      </button>
-      <button mat-button routerLink="/posts/create">
-        <mat-icon>note_add</mat-icon>
-        Novo Post
-      </button>
-    </div>
-    <div class="social-links">
-      <a mat-icon-button href="https://github.com/Arthur99Silva" target="_blank" aria-label="GitHub">
-        <mat-icon>code</mat-icon>
-      </a>
-      <a mat-icon-button href="https://www.linkedin.com/in/arthur-antunes-66a99b2a8/" target="_blank" aria-label="LinkedIn">
-        <mat-icon>business_center</mat-icon>
-      </a>
-    </div>
-  </footer>
-  
+  <div class="nav-links">
+    <button
+      mat-button
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+
+    <button
+      mat-button
+      routerLink="/posts"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon>list</mat-icon>
+      Posts
+    </button>
+
+    <button
+      mat-button
+      routerLink="/posts/create"
+      routerLinkActive="active"
+    >
+      <mat-icon>note_add</mat-icon>
+      Novo Post
+    </button>
+  </div>
+
+  <div class="social-links">
+    <a
+      mat-icon-button
+      href="https://github.com/Arthur99Silva"
+      target="_blank"
+      aria-label="GitHub"
+    >
+      <mat-icon>code</mat-icon>
+    </a>
+    <a
+      mat-icon-button
+      href="https://www.linkedin.com/in/arthur-antunes-66a99b2a8/"
+      target="_blank"
+      aria-label="LinkedIn"
+    >
+      <mat-icon>business_center</mat-icon>
+    </a>
+  </div>
+</footer>
