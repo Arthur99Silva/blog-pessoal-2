@@ -1,67 +1,49 @@
 .dashboard-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
   padding: 1rem;
-  animation: fadeIn 0.5s ease-out;
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.empty-state {
+  text-align: center;
+  margin: 2rem;
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .summary-card,
 .chart-card,
 .recent-card {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
-mat-card-header {
+/* Cabeçalho comum com ícone ao lado do título */
+.card-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
+.card-icon {
+  margin-right: 0.5rem;
+  font-size: 24px;
+}
+
+/* Centraliza e colore o número de postagens */
 .summary-content {
-  font-size: 3rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: #9c27b0;
   padding: 1rem 0;
-  color: #6A2C70;
 }
 
 .chart-container {
-  width: 100%;
-  height: 260px;  /* para conter o gráfico */
-  overflow: hidden;
-}
-
-.divider {
-  grid-column: 1 / -1;
-  margin: 0.5rem 0;
-}
-
-.item-lines {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-title {
-  font-weight: 500;
-}
-
-.post-meta {
-  font-size: 0.85rem;
-  color: rgba(0,0,0,0.6);
-}
-
-/* deixa o item clicável com hover */
-.clickable-item {
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.clickable-item:hover {
-  background: rgba(0,0,0,0.04);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+  height: 240px;
 }
