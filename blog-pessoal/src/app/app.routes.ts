@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './services/auth.guard';
 import { PendingChangesGuard } from './guards/pending-changes.guard';
+import { ProfileComponent } from './profile/profile.component';
+
 
 export const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +22,11 @@ export const APP_ROUTES: Routes = [
   {
     path: 'posts',
     component: PostListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard]
   },
   {
