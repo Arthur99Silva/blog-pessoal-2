@@ -18,7 +18,10 @@ import com.projeto2.blog_backend.service.PostService;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "http://localhost:4200")  // Permite requisições do frontend Angular
+@CrossOrigin(origins = {
+    "http://localhost:4200",
+    "https://dancing-faloodeh-05299f.netlify.app"
+})
 public class PostController {
 
     @Autowired
