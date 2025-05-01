@@ -1,0 +1,5 @@
+/home/arthurantunes/Documentos/BlogPessoal2/blog-backend/src/main/java/com/projeto2/blog_backend/BlogBackendApplication.java
+/home/arthurantunes/Documentos/BlogPessoal2/blog-backend/src/main/java/com/projeto2/blog_backend/controller/PostController.java
+/home/arthurantunes/Documentos/BlogPessoal2/blog-backend/src/main/java/com/projeto2/blog_backend/model/Post.java
+/home/arthurantunes/Documentos/BlogPessoal2/blog-backend/src/main/java/com/projeto2/blog_backend/repository/PostRepository.java
+/home/arthurantunes/Documentos/BlogPessoal2/blog-backend/src/main/java/com/projeto2/blog_backend/service/PostService.java

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { a as DIR_DOCUMENT, D as Directionality } from './directionality-3d9192d2.mjs';\nexport { B as BidiModule, D as Dir } from './bidi-module-0b64b96c.mjs';\nimport '@angular/core';\nimport '@angular/common';\n//# sourceMappingURL=bidi.mjs.map","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
