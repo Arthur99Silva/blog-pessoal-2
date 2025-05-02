@@ -1,10 +1,12 @@
+// signup.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
-  Validators
+  Validators,
+  AbstractControl
 } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
@@ -50,12 +52,21 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordsMatchValidator });
+  }
+
+  /** Validador que garante que password === confirmPassword */
+  passwordsMatchValidator(form: AbstractControl) {
+    const pass = form.get('password')?.value;
+    const confirm = form.get('confirmPassword')?.value;
+    return pass === confirm ? null : { mismatch: true };
   }
 
   onSubmit() {
     if (this.signupForm.invalid) return;
+
     const { username, password } = this.signupForm.value;
     this.auth.register(username, password).subscribe(success => {
       if (success) {

@@ -1,3 +1,4 @@
+<!-- signup.component.html -->
 <mat-card class="signup-card mat-elevation-z2">
   <mat-card-header>
     <mat-card-title>Cadastre-se</mat-card-title>
@@ -27,6 +28,27 @@
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirmar senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput
+               [type]="hide ? 'password' : 'text'"
+               placeholder="••••••"
+               formControlName="confirmPassword" />
+        <button mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hide = !hide"
+                [attr.aria-label]="'Mostrar senha'">
+          <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched"
+           class="error">
+        As senhas não coincidem.
+      </div>
 
       <div *ngIf="error" class="error">{{ error }}</div>
 
