@@ -25,8 +25,8 @@ Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analí
 
 ## 🌟 Demonstração
 
-- **Front-end (Netlify):** https://<YOUR_NETLIFY_SITE>.netlify.app  
-- **Back-end (Azure):** https://<YOUR_AZURE_APP>.azurewebsites.net
+- **Front-end (Netlify):** https://dancing-faloodeh-05299f.netlify.app/login
+- **Back-end (Azure):** https://blog-backend-azure.azurewebsites.net/api/posts
 
 ---
 
@@ -131,16 +131,6 @@ Por padrão, a API estará em `http://localhost:8080/api/posts`.
 - **CI/CD**: GitHub Actions para build + deploy  
 - **Front-end**: Netlify (branch `main` → deploy automático)  
 - **Back-end**: Azure App Service via Actions
-
----
-
-## 🤝 Contribuições
-
-1. Fork este repositório  
-2. Crie uma branch: `git checkout -b feature/nome-da-feature`  
-3. Faça suas modificações e commit: `git commit -m "feat: descrição breve"`  
-4. Push na sua branch: `git push origin feature/nome-da-feature`  
-5. Abra um Pull Request  
 
 ---
 
