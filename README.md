@@ -1,22 +1,3 @@
-<!-- PROJECT BADGES -->
-<p align="center">
-  <a href="https://github.com/<YOUR_USER>/<YOUR_REPO>/actions/workflows/backend.yml">
-    <img src="https://github.com/<YOUR_USER>/<YOUR_REPO>/actions/workflows/backend.yml/badge.svg" alt="Backend CI" />
-  </a>
-  <a href="https://github.com/<YOUR_USER>/<YOUR_REPO>/actions/workflows/frontend.yml">
-    <img src="https://github.com/<YOUR_USER>/<YOUR_REPO>/actions/workflows/frontend.yml/badge.svg" alt="Frontend CI" />
-  </a>
-  <a href="https://app.netlify.com/sites/<YOUR_NETLIFY_SITE>/deploys">
-    <img src="https://api.netlify.com/api/v1/badges/<NETLIFY_BADGE_ID>/deploy-status" alt="Netlify Status" />
-  </a>
-  <a href="https://<YOUR_AZURE_APP>.azurewebsites.net">
-    <img src="https://img.shields.io/azure-devops/deploy/ORG/PROJECT/ENVIRONMENT?logo=azure-pipelines" alt="Azure Deploy" />
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue" alt="License: MIT" />
-  </a>
-</p>
-
 # 📖 Projeto Blog Pessoal
 
 Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analítico, desenvolvida com **Angular** no front-end e **Spring Boot 3.4.4** no back-end.
@@ -34,14 +15,45 @@ Uma aplicação full-stack de blog, com **CRUD** de postagens e dashboard analí
 
 <table>
   <tr>
-    <td><img src="https://img.shields.io/badge/Angular-16-CLI-v15-blue?logo=angular" alt="Angular CLI" /></td>
-    <td><img src="https://img.shields.io/badge/Node-JS-v22.14.0-green?logo=node.js" alt="Node.js" /></td>
-    <td><img src="https://img.shields.io/badge/Spring_Boot-3.4.4-6DB33F?logo=spring-boot" alt="Spring Boot" /></td>
-    <td><img src="https://img.shields.io/badge/Java-17-007396?logo=java" alt="Java 17" /></td>
-    <td><img src="https://img.shields.io/badge/VSCode-1.83-007ACC?logo=visual-studio-code" alt="VS Code" /></td>
-    <td><img src="https://img.shields.io/badge/GitHub-Actions-2088FF?logo=github-actions" alt="GitHub Actions" /></td>
+    <td align="center">
+      <a href="https://angular.io/">
+        <img src="https://img.shields.io/badge/Angular_CLI-16.0-red?logo=angular&logoColor=white" alt="Angular CLI" /><br/>
+        Angular CLI
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://nodejs.org/">
+        <img src="https://img.shields.io/badge/Node.js-v22.14.0-green?logo=node.js&logoColor=white" alt="Node.js" /><br/>
+        Node.js
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://spring.io/projects/spring-boot">
+        <img src="https://img.shields.io/badge/Spring_Boot-3.4.4-6DB33F?logo=spring&logoColor=white" alt="Spring Boot" /><br/>
+        Spring Boot
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.oracle.com/java/">
+        <img src="https://img.shields.io/badge/Java-17-007396?logo=java&logoColor=white" alt="Java 17" /><br/>
+        Java 17
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://code.visualstudio.com/">
+        <img src="https://img.shields.io/badge/VS%20Code-1.83-007ACC?logo=visual-studio-code&logoColor=white" alt="VS Code" /><br/>
+        VS Code
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/features/actions">
+        <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white" alt="GitHub Actions" /><br/>
+        GitHub Actions
+      </a>
+    </td>
   </tr>
 </table>
+
 
 ---
 
@@ -133,13 +145,3 @@ Por padrão, a API estará em `http://localhost:8080/api/posts`.
 - **Back-end**: Azure App Service via Actions
 
 ---
-
-## 📄 Licença
-
-Este projeto está sob a licença [MIT](LICENSE).
-
----
-
-<p align="center">
-  Feito com ❤️ por Arthur
-</p>
