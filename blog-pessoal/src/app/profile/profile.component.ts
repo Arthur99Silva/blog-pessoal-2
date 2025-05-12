@@ -1,4 +1,3 @@
-// profile.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -36,12 +35,11 @@ export class ProfileComponent implements OnInit {
     public auth: AuthService,
     private snack: MatSnackBar
   ) {
-    // Criamos agora 4 controles: email, fullName, about e avatar
     this.profileForm = this.fb.group({
-      email: [''],
+      email:    [''],
       fullName: [''],
-      about: [''],
-      avatar: [null]
+      about:    [''],
+      avatar:   [null]
     });
   }
 
@@ -49,11 +47,11 @@ export class ProfileComponent implements OnInit {
     this.auth.userProfile$.subscribe((p: UserProfile | null) => {
       if (p) {
         this.profileForm.patchValue({
-          email: p.email ?? '',
-          fullName: (p as any).fullName ?? '',
-          about:    (p as any).about    ?? ''
+          email:    p.email    ?? '',
+          fullName: p.fullName ?? '',
+          about:    p.about    ?? '',
+          avatar:   p.avatar   ?? null
         });
-        this.profileForm.patchValue({ avatar: p.avatar ?? null });
         this.avatarPreview = p.avatar ?? null;
       }
     });
@@ -79,9 +77,7 @@ export class ProfileComponent implements OnInit {
     const about:    string | null = this.profileForm.value.about    ?? null;
     const avatar:   string | null = this.profileForm.value.avatar   ?? null;
 
-    // Se o AuthService suportar, passe fullName e about também.
-    // Por enquanto continuamos chamando só email e avatar:
-    this.auth.updateProfile(email, avatar);
+    this.auth.updateProfile(email, avatar, fullName, about);
 
     this.snack.open('Perfil atualizado!', 'Fechar', { duration: 2000 });
   }
