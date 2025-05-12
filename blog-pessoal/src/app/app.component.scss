@@ -46,3 +46,14 @@ app-footer {
   margin-right: 6px;
   vertical-align: middle;
 }
+
+mat-toolbar .mat-icon,
+mat-toolbar .header-avatar {
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+mat-toolbar button.mat-button:hover .mat-icon,
+mat-toolbar button.mat-button:hover .header-avatar {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
