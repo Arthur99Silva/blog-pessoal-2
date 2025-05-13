@@ -34,6 +34,7 @@ import { PostService, Post } from '../services/post.service';
 export class DashboardComponent implements OnInit {
   loading = false;
   totalPosts = 0;
+  displayCount = 0;
   postsByAuthor: { name: string; value: number }[] = [];
   recentPosts: Post[] = [];
   view: [number, number] = [500, 240];
@@ -59,7 +60,7 @@ export class DashboardComponent implements OnInit {
     this.postService.getAllPosts().subscribe({
       next: posts => {
         this.totalPosts = posts.length;
-
+        this.animateCount();
         // Agrupa postagens por autor
         const counts = posts.reduce((acc, p) => {
           acc[p.autor] = (acc[p.autor] || 0) + 1;
@@ -81,5 +82,22 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+  private animateCount(): void {
+    const duration = 800;                      // duração total em ms
+    const steps = 50;                          // quantos “ticks”
+    const increment = Math.ceil(this.totalPosts / steps);
+    let current = 0;
+    const interval = duration / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= this.totalPosts) {
+        this.displayCount = this.totalPosts;
+        clearInterval(timer);
+      } else {
+        this.displayCount = current;
+      }
+    }, interval);
   }
 }
