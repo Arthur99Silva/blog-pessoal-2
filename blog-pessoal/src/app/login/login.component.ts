@@ -1,3 +1,4 @@
+// login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,21 +9,22 @@ import {
 } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
+// Lottie
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+
 // Angular Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';            // <- IMPORTANTE
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthService } from '../services/auth.service';
 
 @Component({
   standalone: true,
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -31,14 +33,24 @@ import { AuthService } from '../services/auth.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,            // <- ADICIONADO AQUI
-    MatSnackBarModule
-  ]
+    MatIconModule,
+    MatSnackBarModule,
+    LottieComponent
+  ],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  hide = true;                    // <- PROPRIEDADE PARA TOGGLE DE SENHA
+  hide = true;
   error: string | null = null;
+
+  // Lottie config
+  lottieConfig: AnimationOptions = {
+    path: 'assets/animation.json',
+    loop: true,
+    autoplay: true
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -47,16 +59,16 @@ export class LoginComponent implements OnInit {
     private snack: MatSnackBar
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.invalid) return;
-    const { username, password } = this.loginForm.value!;
+    const { username, password } = this.loginForm.value;
     this.auth.login(username, password).subscribe(success => {
       if (success) {
         this.router.navigate(['/dashboard']);

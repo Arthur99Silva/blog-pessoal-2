@@ -1,4 +1,45 @@
-/* signup.component.scss */
+/* Layout with animation + form */
+.signup-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .illustration {
+    flex: 1;
+    text-align: center;
+
+    ng-lottie {
+      display: inline-block;
+      max-width: 80%;
+      margin: 1rem;
+    }
+  }
+
+  .form-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-page {
+    flex-direction: column;
+
+    .illustration {
+      display: none;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      padding: 0 1rem;
+    }
+  }
+}
+
+/* Your existing styles below */
 .signup-card {
   width: 100%;
   max-width: 400px;
@@ -29,5 +70,5 @@ mat-card-actions {
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0);  }
+  to   { opacity: 1; transform: translateY(0); }
 }
