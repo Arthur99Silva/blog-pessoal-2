@@ -47,3 +47,13 @@
 .chart-container {
   height: 240px;
 }
+
+.clickable-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-item:hover {
+  background-color: rgba(156, 39, 176, 0.1); 
+}
+

@@ -53,15 +53,17 @@
         </mat-card-header>
         <mat-card-content>
           <mat-list>
-            <mat-list-item
+            <a
+              mat-list-item
               *ngFor="let post of recentPosts"
-              routerLink="/posts/{{ post.id }}"
-              class="clickable-item">
+              [routerLink]="['/posts', post.id]"
+              class="clickable-item"
+            >
               <div class="item-lines">
                 <div class="post-title">{{ post.titulo }}</div>
                 <div class="post-meta">{{ post.autor }} • {{ post.data | date:'short' }}</div>
               </div>
-            </mat-list-item>
+            </a>
           </mat-list>
         </mat-card-content>
       </mat-card>
