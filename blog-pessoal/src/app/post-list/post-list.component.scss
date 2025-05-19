@@ -2,6 +2,7 @@
   max-width: 900px;
   margin: 1rem auto;
   padding: 1rem;
+  overflow: visible; // Adicionado para evitar cortes
 }
 
 .filters {
@@ -30,9 +31,45 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 1rem; // Espaçamento entre elementos
+
+  > div:first-child {
+    flex: 1;
+    min-width: 0; // Permite que o conteúdo de texto quebre corretamente
+  }
+
+  h3 {
+    white-space: normal; // Quebra de linha habilitada
+    word-wrap: break-word; // Quebra palavras longas
+    margin: 0 0 0.5rem 0;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+  }
 }
 
 .actions {
   display: flex;
   gap: 0.5rem;
+  flex-shrink: 0; // Impede que os ícones encolham
+}
+
+// Ajustes para responsividade
+@media (max-width: 600px) {
+  .post-list-card {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .item-content {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
 }
