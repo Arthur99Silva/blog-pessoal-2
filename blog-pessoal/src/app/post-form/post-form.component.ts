@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../services/auth.service';
 import { PostService, Post } from '../services/post.service';
 
@@ -29,7 +29,8 @@ import { PostService, Post } from '../services/post.service';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ],
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss']
@@ -57,7 +58,8 @@ export class PostFormComponent implements OnInit {
     this.form = this.fb.group({
       titulo: ['', Validators.required],
       conteudo: ['', Validators.required],
-      autor: ['', Validators.required]
+      autor: ['', Validators.required],
+      tema: ['', Validators.required] 
     });
 
     this.route.paramMap.subscribe(params => {
@@ -100,4 +102,12 @@ export class PostFormComponent implements OnInit {
       }
     });
   }
+  temas = [
+    'Tecnologia',
+    'Viagens',
+    'Culinária',
+    'Esportes',
+    'Saúde',
+    'Educação'
+  ];
 }

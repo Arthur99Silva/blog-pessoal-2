@@ -17,16 +17,18 @@ public class Post {
     private String conteudo;
     private String autor;
     private LocalDateTime data;
+    private String tema;
 
     // Construtor vazi
     public Post() {}
 
     // Construtor com parâmetros (opcional)
-    public Post(String titulo, String conteudo, String autor, LocalDateTime data) {
+    public Post(String titulo, String conteudo, String autor, LocalDateTime data, String tema) {
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.autor = autor;
         this.data = data;
+        this.tema = tema;
     }
 
     // Getters e Setters
@@ -68,5 +70,12 @@ public class Post {
 
     public void setData(LocalDateTime data) {
         this.data = data;
+    }
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 }

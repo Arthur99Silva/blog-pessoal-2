@@ -15,6 +15,9 @@
               <mat-card-title>{{ post.titulo }}</mat-card-title>
               <mat-card-subtitle>
                 {{ post.autor }} • {{ post.data | date:'long' }}
+                <mat-chip class="detail-tema post-tema--{{post.tema | lowercase}}">
+                  {{ post.tema }}
+                </mat-chip>
               </mat-card-subtitle>
             </div>
           </div>

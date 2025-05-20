@@ -26,6 +26,16 @@
         <input matInput placeholder="Nome do autor" formControlName="autor" />
       </mat-form-field>
 
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tema</mat-label>
+        <mat-icon matPrefix>category</mat-icon>
+        <mat-select formControlName="tema" placeholder="Selecione um tema">
+          <mat-option *ngFor="let tema of temas" [value]="tema">
+            {{ tema }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> 
+
       <button
         mat-flat-button
         color="primary"

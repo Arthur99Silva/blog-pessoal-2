@@ -2,7 +2,11 @@
   max-width: 900px;
   margin: 1rem auto;
   padding: 1rem;
-  overflow: visible; // Adicionado para evitar cortes
+  overflow: visible;
+
+  .mat-card-title {
+    padding: 0 16px;
+  }
 }
 
 .filters {
@@ -10,6 +14,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1rem;
+  padding: 0 16px;
 }
 
 .filter-field {
@@ -23,7 +28,12 @@
 }
 
 .list-item {
-  padding: 1rem 0;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .item-content {
@@ -31,45 +41,95 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 1rem; // Espaçamento entre elementos
+  gap: 16px;
+}
 
-  > div:first-child {
-    flex: 1;
-    min-width: 0; // Permite que o conteúdo de texto quebre corretamente
-  }
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
 
-  h3 {
-    white-space: normal; // Quebra de linha habilitada
-    word-wrap: break-word; // Quebra palavras longas
-    margin: 0 0 0.5rem 0;
-  }
-
-  p {
+  .post-title {
     margin: 0;
-    color: rgba(0, 0, 0, 0.6);
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem;
   }
+
+  .post-tema {
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .meta-info {
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}
+
+.post-tema {
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-weight: 500;
+
+  &--tecnologia { background-color: #e3f2fd; color: #1976d2; }
+  &--viagens { background-color: #fff3e0; color: #ef6c00; }
+  &--culinaria { background-color: #fbe9e7; color: #d84315; }
+  &--esportes { background-color: #e8f5e9; color: #2e7d32; }
 }
 
 .actions {
   display: flex;
-  gap: 0.5rem;
-  flex-shrink: 0; // Impede que os ícones encolham
+  gap: 8px;
+  flex-shrink: 0;
+
+  button {
+    flex-shrink: 0;
+  }
 }
 
-// Ajustes para responsividade
-@media (max-width: 600px) {
-  .post-list-card {
-    margin: 0.5rem;
-    padding: 0.5rem;
+@media (max-width: 768px) {
+  .post-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    row-gap: 0.25rem;
+
+    .post-title {
+      flex-basis: 100%;
+      white-space: normal;
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .meta-info {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .post-header {
+    .post-tema {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+    }
+
+    .meta-info {
+      font-size: 0.75rem;
+    }
   }
 
   .item-content {
-    flex-direction: column;
-    align-items: flex-start;
-
-    .actions {
-      width: 100%;
-      justify-content: flex-end;
-    }
+    gap: 8px;
   }
 }

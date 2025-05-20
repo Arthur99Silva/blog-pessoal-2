@@ -11,6 +11,7 @@ export interface Post {
   titulo: string;
   conteudo: string;
   autor: string;
+  tema: string; 
   data?: Date;
 }
 

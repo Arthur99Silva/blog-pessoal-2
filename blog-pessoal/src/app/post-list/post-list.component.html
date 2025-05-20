@@ -15,6 +15,16 @@
           <mat-option *ngFor="let auth of authors" [value]="auth">{{ auth }}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Filtrar por tema</mat-label>
+        <mat-select [formControl]="themeFilter">
+          <mat-option value="">Todos</mat-option>
+          <mat-option *ngFor="let theme of themes" [value]="theme">
+            {{ theme }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="loading" *ngIf="loading">
@@ -24,9 +34,14 @@
     <mat-list *ngIf="!loading">
       <mat-list-item *ngFor="let post of filteredPosts" class="list-item">
         <div class="item-content">
-          <div>
-            <h3>{{ post.titulo }}</h3>
-            <p>{{ post.autor }} • {{ post.data | date:'short' }}</p>
+          <div class="post-header">
+            <h3 class="post-title">{{ post.titulo }}</h3>
+            <mat-chip class="post-tema post-tema--{{post.tema | lowercase}}">
+              {{ post.tema }}
+            </mat-chip>
+            <span class="meta-info">
+              {{ post.autor }} • {{ post.data | date:'short' }}
+            </span>
           </div>
           <div class="actions">
             <button mat-icon-button color="primary" (click)="onEdit(post.id)">
