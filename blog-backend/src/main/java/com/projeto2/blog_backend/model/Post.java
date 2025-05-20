@@ -1,10 +1,12 @@
 package com.projeto2.blog_backend.model;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity
 public class Post {
@@ -14,6 +16,7 @@ public class Post {
     private Long id;
     
     private String titulo;
+    @Column(length = 2000)
     private String conteudo;
     private String autor;
     private LocalDateTime data;
