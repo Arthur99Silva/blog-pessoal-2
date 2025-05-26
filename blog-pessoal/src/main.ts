@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-// ⬇️ import do provider
+//import do provider
 import { provideLottieOptions } from 'ngx-lottie';
 
 import { APP_ROUTES } from './app/app.routes';
